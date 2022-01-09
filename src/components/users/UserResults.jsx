@@ -1,5 +1,7 @@
+// Q: Why do some imports have to have brackets and some don't? Looks like imports from 'react' all need brackets, while importing components I make myself don't need brackets.
 import { useEffect, useState } from 'react'
 import Spinner from '../layout/Spinner'
+import UserItem from '../users/UserItem'
 
 function UserResults() {
   // The "name" of the useStates is how you access them in the return part of the component.
@@ -30,7 +32,8 @@ function UserResults() {
     return (
       <div className='grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2'>
         {users.map((user) => (
-          <h3>{user.login}</h3>
+          <UserItem key={user.id} user={user} />
+          // <h3>{user.login}</h3>
         ))}
       </div>
     )
