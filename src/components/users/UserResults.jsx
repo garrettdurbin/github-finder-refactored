@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import Spinner from '../layout/Spinner'
 
 function UserResults() {
   // The "name" of the useStates is how you access them in the return part of the component.
@@ -25,6 +26,7 @@ function UserResults() {
   }
 
   if(!loading) {
+    // Question: Why do we use brackets inside a return as below? What's that called?
     return (
       <div className='grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2'>
         {users.map((user) => (
@@ -33,7 +35,7 @@ function UserResults() {
       </div>
     )
   } else {
-    return <h3>Loading...</h3>
+    return <Spinner />
   }
   
 }
