@@ -17,13 +17,16 @@ export const GithubProvider = ({ children }) => {
   // useReducer version of state
   const initialState = {
     users: [],
-    loading: true
+    loading: false
   }
 
   const [state, dispatch] = useReducer(githubReducer, initialState)
 
+  // Get initial users (just using this for testing)
   const fetchUsers = async () => {
     console.log('fetchUsers fired from fetchUsers')
+    // setLoading calls my dispatch
+    setLoading()
     const response = await fetch('https://api.github.com/users', {
       headers: {
         Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`
@@ -37,6 +40,10 @@ export const GithubProvider = ({ children }) => {
       payload: data,
     })
   }
+
+  // Set loading
+  const setLoading = () => dispatch({type: 'SET_LOADING'})
+
 
   return (
     // Anything I want to get out somewhere else using context I have to include here within the "Provider"

@@ -1,17 +1,13 @@
 // Q: Why do some imports have to have brackets and some don't? Looks like imports from 'react' all need brackets, while importing components I make myself don't need brackets.
-import { useEffect, useContext } from 'react'
+import { useContext } from 'react'
 import Spinner from '../layout/Spinner'
 import UserItem from '../users/UserItem'
 import GithubContext from '../../context/github/GithubContext'
 
 function UserResults() {
   // Allows me to use my GithubContext (Also have to import it above.)
-  const { users, loading, fetchUsers } = useContext(GithubContext)
+  const { users, loading } = useContext(GithubContext)
 
-  useEffect(() => {
-    fetchUsers()
-    console.log('fetchUsers Fired from useEffect')
-  }, [])
 
 
   if (!loading) {
