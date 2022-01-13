@@ -6,6 +6,7 @@ import GithubContext from '../../context/github/GithubContext'
 
 function UserResults() {
   // Allows me to use my GithubContext (Also have to import it above.)
+  // The {} is destructuring. This allows me to pull out things like users and loading.
   const { users, loading } = useContext(GithubContext)
 
 
