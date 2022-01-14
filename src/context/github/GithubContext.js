@@ -22,22 +22,27 @@ export const GithubProvider = ({ children }) => {
 
   const [state, dispatch] = useReducer(githubReducer, initialState)
 
-  // Get initial users (just using this for testing)
-  const fetchUsers = async () => {
+  // Get search results
+  const searchUsers = async (text) => {
     console.log('fetchUsers fired from fetchUsers')
     // setLoading calls my dispatch
     setLoading()
-    const response = await fetch('https://api.github.com/users', {
+
+    const params = new URLSearchParams({
+      q: text
+    })
+
+    const response = await fetch(`https://api.github.com/search/users?${params}`, {
       headers: {
         Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`
       }
     })
 
-    const data = await response.json()
+    const {items} = await response.json()
 
     dispatch({
       type: 'GET_USERS',
-      payload: data,
+      payload: items,
     })
   }
 
@@ -51,7 +56,7 @@ export const GithubProvider = ({ children }) => {
         // not sure why this has to be "state.users" rather than "users"...Answer: I used to be defining state line this with useState: const [users, setUsers] = useState([]). HOWEVER, now I'm getting the values from "const [state, dispatch] = useReducer(githubReducer, initialState)"
         users: state.users,
         loading: state.loading,
-        fetchUsers,
+        searchUsers,
       }}>
       {children}
     </GithubContext.Provider>
