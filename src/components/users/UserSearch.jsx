@@ -7,7 +7,7 @@ function UserSearch() {
   // Here I set a component level state with the useState hook. Name of state is text. State can be changed with function called "setText". State is set to empty string by default. Cool.
   const [text, setText] = useState('')
 
-  const { users, searchUsers } = useContext(GithubContext)
+  const { users, searchUsers, clearResults } = useContext(GithubContext)
 
   // I should look up e and event handling. I get that this function is taking in events as a param and we're returning setText(whatever Events happen). I just feel like I should understand it a little better.
   const handleChange = (e) => setText(e.target.value)
@@ -25,6 +25,7 @@ function UserSearch() {
       setText('')
     }
   }
+
 
   return (
     <div className="grid grid-cols-1 lx:grid-cols-2 lg:grid-cols-2 md:grid-cols-2 mb-8 gap-8">
@@ -51,7 +52,12 @@ function UserSearch() {
       </div>
       {users.length > 0 && (
         <div>
-          <button className="btn btn-ghost btn-lg">Clear</button>
+          <button
+            onClick={clearResults}
+            className="btn btn-ghost btn-lg"
+          >
+            Clear
+          </button>
         </div>
       )}
 
