@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react'
 import GithubContext from '../../context/github/GithubContext'
+import AlertContext from '../../context/alert/AlertContext'
 
 function UserSearch() {
 
@@ -8,6 +9,7 @@ function UserSearch() {
   const [text, setText] = useState('')
 
   const { users, searchUsers, clearResults } = useContext(GithubContext)
+  const { setAlert } = useContext(AlertContext)
 
   // I should look up e and event handling. I get that this function is taking in events as a param and we're returning setText(whatever Events happen). I just feel like I should understand it a little better.
   const handleChange = (e) => setText(e.target.value)
@@ -16,7 +18,7 @@ function UserSearch() {
     e.preventDefault()
 
     if (text === '') {
-      alert('Please enter something')
+      setAlert('Please enter something', 'error')
     } else {
       // searchUsers is defined in context, but what text are we passing in? Oh! Text is the local state we defined above.
       searchUsers(text)
