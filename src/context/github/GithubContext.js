@@ -11,6 +11,7 @@ const GithubContext = createContext()
 // GithubProvider is going to take in props, and we want the children from that...he then said, that's basically what we surround with the provider...but that last part doesn't make sense yet.
 export const GithubProvider = ({ children }) => {
   // The "name" of the useStates is how you access them in the return part of the component.
+  // I read here https://www.robinwieruch.de/react-usereducer-hook/ that useState and useReducer are THE two hooks that are used for modern(2019) state mangement in React. useReducer vs Reducer was confusing to me at first, but useReducer is how you attach "dispatch", and the acual reducer usually involves a switch case or if statement (like in my GithubReducer and AlertReducer.)
   // const [users, setUsers] = useState([])
   // const [loading, setLoading] = useState(true)
 
@@ -20,6 +21,10 @@ export const GithubProvider = ({ children }) => {
     loading: false
   }
 
+
+  // I don't think this makes sense anymore. I need to go back and rewatch the part where he wrote this line.
+  // The "reducer" that takes in 2 arguments: 1:The Current State AND 2:An Action is what I have for my GithubReducer.js file.
+  // The useReducer hook is used for complex state and state transitions. It takes a reducer function and an initial state as input and returns the current state and a dispatch function as output with array destructuring
   const [state, dispatch] = useReducer(githubReducer, initialState)
 
   // Get search results
