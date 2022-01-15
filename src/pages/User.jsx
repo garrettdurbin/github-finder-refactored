@@ -15,6 +15,7 @@ function User() {
     getUserRepos(params.login)
   }, [])
 
+  // The following is how you would deconstruct items from "user", which is imported from GithubContext above.
   const {
     name,
     type,
