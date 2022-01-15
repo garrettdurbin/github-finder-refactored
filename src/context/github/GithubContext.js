@@ -18,7 +18,8 @@ export const GithubProvider = ({ children }) => {
   // useReducer version of state
   const initialState = {
     users: [],
-    loading: false
+    user: {},
+    loading: false,
   }
 
 
@@ -51,10 +52,37 @@ export const GithubProvider = ({ children }) => {
     })
   }
 
+  // Get single user
+  const getUser = async (login) => {
+    console.log('getUser fired')
+    // setLoading calls my dispatch
+    setLoading()
+
+    const response = await fetch(`https://api.github.com/users/${login}`, {
+      headers: {
+        Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`
+      }
+    })
+
+    if(response.status === 404) {
+      window.location = '/notfound'
+    } else {
+      const data = await response.json()
+
+      dispatch({
+        type: 'GET_USER',
+        payload: data,
+      })
+    }
+
+    
+  }
+
   // Clear search results
   const clearResults = () => dispatch({type: 'CLEAR_RESULTS'})
 
   // Set loading
+  // This dispatch calls the action to change loading state to "loading"
   const setLoading = () => dispatch({type: 'SET_LOADING'})
 
 
@@ -65,8 +93,10 @@ export const GithubProvider = ({ children }) => {
         // not sure why this has to be "state.users" rather than "users"...Answer: I used to be defining state line this with useState: const [users, setUsers] = useState([]). HOWEVER, now I'm getting the values from "const [state, dispatch] = useReducer(githubReducer, initialState)"
         users: state.users,
         loading: state.loading,
+        user: state.user,
         searchUsers,
         clearResults,
+        getUser,
       }}>
       {children}
     </GithubContext.Provider>

@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 // Q: How does "destructuring work"? I know that's what's happening in the line below. We're taking in "user" as a prop. User contains "login" and "avatar_url"
@@ -38,13 +38,13 @@ function UserItem({ user: { login, avatar_url } }) {
           Why not?
           to=`/users${login}`
           */}
-          <Link className='text-base-content text-opacity-40' to={`/users/${login}`}>
+          <Link className='text-base-content text-opacity-40' to={`/user/${login}`}>
             Visit Profile
           </Link>
         </div>
       </div>
-      
-      
+
+
     </div>
   )
 }
