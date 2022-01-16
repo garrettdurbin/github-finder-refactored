@@ -26,65 +26,6 @@ export const GithubProvider = ({ children }) => {
   // I now have access to "dispatch" outsite this context because I passed it through the "provider" below.
   const [state, dispatch] = useReducer(githubReducer, initialState)
 
-  
-
-  // Get single user
-  const getUser = async (login) => {
-    console.log('getUser fired')
-    // setLoading calls my dispatch
-    setLoading()
-
-    const response = await fetch(`https://api.github.com/users/${login}`, {
-      // headers: {
-      //   Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`
-      // }
-    })
-
-    if(response.status === 404) {
-      window.location = '/notfound'
-    } else {
-      const data = await response.json()
-
-      dispatch({
-        type: 'GET_USER',
-        payload: data,
-      })
-    }
-  }
-
-  // Get user repos
-  const getUserRepos = async (login) => {
-    console.log('getUserRepos fired')
-    // setLoading calls my dispatch
-    setLoading()
-
-    const params = new URLSearchParams({
-      sort: 'created',
-      per_page: 10
-    })
-
-    const response = await fetch(`https://api.github.com/users/${login}/repos?${params}`, {
-      // headers: {
-      //   Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`
-      // }
-    })
-
-    const data = await response.json()
-
-    dispatch({
-      type: 'GET_REPOS',
-      payload: data,
-    })
-  }
-
-  // Clear search results
-  const clearResults = () => dispatch({type: 'CLEAR_RESULTS'})
-
-  // Set loading
-  // This dispatch calls the action to change loading state to "loading"
-  const setLoading = () => dispatch({type: 'SET_LOADING'})
-
-
 
   return (
     // Anything I want to get out somewhere else using context I have to include here within the "Provider"
@@ -92,9 +33,6 @@ export const GithubProvider = ({ children }) => {
         // not sure why this has to be "state.users" rather than "users"...Answer: I used to be defining state line this with useState: const [users, setUsers] = useState([]). HOWEVER, now I'm getting the values from "const [state, dispatch] = useReducer(githubReducer, initialState)"
         ...state,
         dispatch,
-        clearResults,
-        getUser,
-        getUserRepos
       }}>
       {children}
     </GithubContext.Provider>
