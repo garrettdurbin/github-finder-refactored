@@ -23,31 +23,10 @@ export const GithubProvider = ({ children }) => {
 
   // The "reducer" that takes in 2 arguments: 1:The Current State AND 2:An Action is what I have for my GithubReducer.js file.
   // The useReducer hook is used for complex state and state transitions. It takes a reducer function and an initial state as input and returns the current state and a dispatch function as output with array destructuring
+  // I now have access to "dispatch" outsite this context because I passed it through the "provider" below.
   const [state, dispatch] = useReducer(githubReducer, initialState)
 
-  // Get search results
-  const searchUsers = async (text) => {
-    console.log('fetchUsers fired from fetchUsers')
-    // setLoading calls my dispatch
-    setLoading()
-
-    const params = new URLSearchParams({
-      q: text
-    })
-
-    const response = await fetch(`https://api.github.com/search/users?${params}`, {
-      headers: {
-        Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`
-      }
-    })
-
-    const {items} = await response.json()
-
-    dispatch({
-      type: 'GET_USERS',
-      payload: items,
-    })
-  }
+  
 
   // Get single user
   const getUser = async (login) => {
@@ -56,9 +35,9 @@ export const GithubProvider = ({ children }) => {
     setLoading()
 
     const response = await fetch(`https://api.github.com/users/${login}`, {
-      headers: {
-        Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`
-      }
+      // headers: {
+      //   Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`
+      // }
     })
 
     if(response.status === 404) {
@@ -85,9 +64,9 @@ export const GithubProvider = ({ children }) => {
     })
 
     const response = await fetch(`https://api.github.com/users/${login}/repos?${params}`, {
-      headers: {
-        Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`
-      }
+      // headers: {
+      //   Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`
+      // }
     })
 
     const data = await response.json()
@@ -111,11 +90,8 @@ export const GithubProvider = ({ children }) => {
     // Anything I want to get out somewhere else using context I have to include here within the "Provider"
     <GithubContext.Provider value={{
         // not sure why this has to be "state.users" rather than "users"...Answer: I used to be defining state line this with useState: const [users, setUsers] = useState([]). HOWEVER, now I'm getting the values from "const [state, dispatch] = useReducer(githubReducer, initialState)"
-        users: state.users,
-        loading: state.loading,
-        user: state.user,
-        repos: state.repos,
-        searchUsers,
+        ...state,
+        dispatch,
         clearResults,
         getUser,
         getUserRepos

@@ -1,6 +1,9 @@
+// Use curly braces if your importing something that's not a "default export"
 import { useState, useContext } from 'react'
 import GithubContext from '../../context/github/GithubContext'
 import AlertContext from '../../context/alert/AlertContext'
+import { searchUsers } from '../../context/github/GithubActions'
+
 
 function UserSearch() {
 
@@ -8,20 +11,22 @@ function UserSearch() {
   // Here I set a component level state with the useState hook. Name of state is text. State can be changed with function called "setText". State is set to empty string by default. Cool.
   const [text, setText] = useState('')
 
-  const { users, searchUsers, clearResults } = useContext(GithubContext)
+  const { users, dispatch, clearResults } = useContext(GithubContext)
   const { setAlert } = useContext(AlertContext)
 
   // I should look up e and event handling. I get that this function is taking in events as a param and we're returning setText(whatever Events happen). I just feel like I should understand it a little better.
   const handleChange = (e) => setText(e.target.value)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     if (text === '') {
       setAlert('Please enter something', 'error')
     } else {
       // searchUsers is defined in context, but what text are we passing in? Oh! Text is the local state we defined above.
-      searchUsers(text)
+      dispatch({ type: 'SET_LOADING' })
+      const users = await searchUsers(text)
+      dispatch({ type: 'GET_USERS', payload: users })
 
 
       setText('')
