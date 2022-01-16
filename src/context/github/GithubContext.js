@@ -4,10 +4,6 @@ import githubReducer from './GithubReducer'
 
 const GithubContext = createContext()
 
-// I don't think I've ever had these variables working. So I'll have to use the actual github url and access token below.
-// const GITHUB_URL = process.env.REACT_APP_GITHUB_URL
-// const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN
-
 // Traversy said we'll have to export a provider. I think this is just a standard thing you have to do when using Context in React.
 // GithubProvider is going to take in props, and we want the children from that...he then said, that's basically what we surround with the provider...but that last part doesn't make sense yet.
 export const GithubProvider = ({ children }) => {
@@ -25,7 +21,6 @@ export const GithubProvider = ({ children }) => {
   }
 
 
-  // I don't think this makes sense anymore. I need to go back and rewatch the part where he wrote this line.
   // The "reducer" that takes in 2 arguments: 1:The Current State AND 2:An Action is what I have for my GithubReducer.js file.
   // The useReducer hook is used for complex state and state transitions. It takes a reducer function and an initial state as input and returns the current state and a dispatch function as output with array destructuring
   const [state, dispatch] = useReducer(githubReducer, initialState)
