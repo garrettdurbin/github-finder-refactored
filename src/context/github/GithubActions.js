@@ -1,15 +1,12 @@
-// Using axios instead of the fetch api
 import axios from 'axios'
-
 
 const github = axios.create({
   baseURL: 'https://api.github.com',
-  headers: {Authorization: 'token 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'}
+  headers: {Authorization: ''}
 })
 
 // Get search results
 export const searchUsers = async (text) => {
-  console.log('searchUsers fired from GithubActions')
 
   const params = new URLSearchParams({
     q: text
@@ -17,7 +14,6 @@ export const searchUsers = async (text) => {
 
   const response = await github.get(`/search/users?${params}`)
   return response.data.items
-
 
 }
 
@@ -32,7 +28,6 @@ export const getUserAndRepos = async(login) => {
 
   return {user: user.data, repos: repos.data}
 }
-
 
 // // Get single user
 // export const getUser = async (login) => {

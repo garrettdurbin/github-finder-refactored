@@ -21,7 +21,6 @@ function User() {
     getUserData()
   }, [dispatch, params.login])
 
-  // The following is how you would deconstruct items from "user", which is imported from GithubContext above.
   const {
     name,
     type,
@@ -65,7 +64,6 @@ function User() {
               </div>
             </div>
           </div>
-
           <div className="col-span-2">
             <div className="mb-6">
               <h1 className="text-3xl card-title">
@@ -86,7 +84,6 @@ function User() {
                 </a>
               </div>
             </div>
-
             <div className="w-full rounded-lg shadow-md bg-base-100 stats">
               {location && (
                 <div className="stat">
@@ -113,7 +110,6 @@ function User() {
             </div>
           </div>
         </div>
-
         <div className="w-full py-5 mb-6 rounded-lg shadow-md bg-base-100 stats">
           <div className="stat">
             <div className="stat-figure text-secondary">
@@ -126,7 +122,6 @@ function User() {
               {followers}
             </div>
           </div>
-
           <div className="stat">
             <div className="stat-figure text-secondary">
               <FaUserFriends className="text-3xl md:text-5xl" />
@@ -138,7 +133,6 @@ function User() {
               {following}
             </div>
           </div>
-
           <div className="stat">
             <div className="stat-figure text-secondary">
               <FaCodepen className="text-3xl md:text-5xl" />
@@ -150,7 +144,6 @@ function User() {
               {public_repos}
             </div>
           </div>
-
           <div className="stat">
             <div className="stat-figure text-secondary">
               <FaStore className="text-3xl md:text-5xl" />
@@ -162,7 +155,6 @@ function User() {
               {public_gists}
             </div>
           </div>
-
         </div>
         <RepoList repos={repos} />
       </div>

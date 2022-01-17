@@ -1,5 +1,3 @@
-// All reducers related to Github state will go here.
-
 const githubReducer = (state, action) => {
   switch (action.type) {
     case 'GET_USERS':

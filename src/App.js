@@ -20,7 +20,6 @@ function App() {
             <main className="container mx-auto px-3 pb-12">
               <Alert />
               <Routes>
-                {/* "element" is the component I want to connect to. "path" is the URL path? */}
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/user/:login" element={<User />} />

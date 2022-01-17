@@ -1,5 +1,3 @@
-/* Below, not sure if that's how I add those 3 lines from the tailwind docs, but if it's wrong maybe I'll find out later.
-I think these are standard tailwind imports */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
